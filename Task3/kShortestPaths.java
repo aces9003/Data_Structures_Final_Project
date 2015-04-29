@@ -7,7 +7,7 @@ public class kShortestPaths {
 		int[] allPaths = {3, 46, 2, 56, 3, 38, 93, 45, 6, 787, 34, 76, 44, 6, 7, 86, 8, 44, 56};
 		
 		// k will be read in as input
-		int[] result = getKShortestPaths(allPaths, 6);
+		int[] result = getKShortestPaths(allPaths, 8);
 		
 		// This will ultimately return the k driver IDs who are shortest path away from the pickup location
 		for (int i : result) {
@@ -16,7 +16,7 @@ public class kShortestPaths {
 	}
 
 	public static int[] getKShortestPaths(int[] allPaths, int k) {
-		// Instead of PriorityQuee of Integers, should be of Paths
+		// Instead of PriorityQueue of type Integer, should be of type Path
 		PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();		
 		for (int i = 0; i < allPaths.length; ++i) {
 			int currentNum = allPaths[i];
@@ -30,10 +30,9 @@ public class kShortestPaths {
 	  	}
 		
 		int[] kpaths = new int[k]; 
-		int index = 0;
 
-		while (index < k) {
-			kpaths[index++] = minHeap.poll();
+		for (int i = 0; i < k; i++) {
+			kpaths[i] = minHeap.poll();
 		}
 	
 		return kpaths;
