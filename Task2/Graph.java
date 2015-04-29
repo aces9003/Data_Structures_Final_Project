@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 public class Graph {
 
     /** map of graph to avoid linked list.*/
-    private Map<String, Vertex> vertexMap; 
+    private HashMap<String, Vertex> vertexMap; 
     /** count of elements in graph.*/
     private int count;
 
@@ -147,6 +147,7 @@ public class Graph {
 
         //remove vertex from map
         vertexMap.remove(vertex);
+        count--;
     }
 
     /**
@@ -163,5 +164,24 @@ public class Graph {
         }
         System.out.println("There's a problem, no 0 indegree");
         return null;
+    }
+
+    /**
+    Sorts the map topologically.
+    @return map of sorted values.
+    */
+    public HashMap<String, ArrayList<String>> topologicalSort() {
+        HashMap<String, ArrayList<String>> dict = 
+            new HashMap<String, ArrayList<String>>();
+        while (this.count > 1) {
+            Vertex temp = this.getInDegreeZeroVertex();
+            ArrayList<String> postChars = new ArrayList<String>();
+            for (int i = 0; i < temp.getAdj().size(); i++) {
+                postChars.add(temp.getAdj().get(i).getChar());
+            }
+            dict.put(temp.getChar(), postChars);
+            this.removeVertex(temp.getChar());
+        }
+        return dict;
     }
 }
