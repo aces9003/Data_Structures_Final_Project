@@ -1,184 +1,165 @@
-//import java.util.Collection;
+// Graph.java
+
 import java.util.List;
-//import java.util.Queue;
-import java.util.Map;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.HashMap;
-import java.util.NoSuchElementException;
-//import java.util.PriorityQueue;
-
-
 
 /**
- *This class represents a graph ADT using a hash map to
- *store an adjacency list of edges.
- * @author Mariano Pennini, Alex Sharata, Matthias Phillippine
+ * Our group's Graph class that we developed together to be
+ * used and modified by each of us for our respective Tasks.
+ * @author Mariano Pennini, Alex Sharata, Matthias Philippine
  *
  */
 public class Graph {
+    /** Represents infinity. */
+    public static final Integer INF = Integer.MAX_VALUE;
     
-    /**Represents an infinity value.**/
-    public static final double INFINITY = Double.MAX_VALUE;
-    /**The hash map to be used to store an array 
-     * list of vertices with name key.**/
-    private Map<String, Vertex> vertexMap = new HashMap<String, Vertex>();
-
-    /**
-     * Add a new edge to the graph.
-     * @param sourceName the name of the source vertex
-     * @param destName the name of the destination vertex.
-     * @param weight the weight to be placed on the edge.
-     */
-    public void addEdge(String sourceName, String destName, double weight) {
-        Vertex v = this.getVertex(sourceName);
-        Vertex w = this.getVertex(destName);
-        v.adj.add(new Edge(w, weight));
-    }
+    /** The hash map to be used to store an array
+     * list of vertices with name key.*/
+    Map<String, Vertex> mapOfVertices = new HashMap<String, Vertex>();
     
-    //DELETE THIS
-  //DELETE THIS
-  //DELETE THIS    
-  //DELETE THIS
-  //DELETE THIS
-  //DELETE THIS
-  //DELETE THIS
-    /**
-     * Driver routine to handle unreachables and print total cost.
-     * It calls recursive routine to print shortest path to
-     * destNode after a shortest path algorithm has run.
-     * 
-     * @param destName the name of the destination vertex.
-     */
-    public void printPath(String destName) {
-        Vertex w = this.vertexMap.get(destName);
-        if (w == null) {
-            throw new NoSuchElementException("Destination vertex not found");
-        } else if (w.weight == INFINITY) {
-            System.out.println(destName + " is unreachable");
-        } else {
-            System.out.print("(Cost is: " + w.weight + ") ");
-            this.printPath(w);
-            System.out.println();
-        }
-    }
-
-    /**
-     * If vertexName is not present, add it to vertexMap.
-     * In either case, return the Vertex.
-     * @param vertexName the name of the vertex requested.
-     * @return the vertex V that was requested.
-     */
-    private Vertex getVertex(String vertexName) {
-        Vertex v = this.vertexMap.get(vertexName);
-        if (v == null) {
-            v = new Vertex(vertexName);
-            this.vertexMap.put(vertexName, v);
-        }
-        return v;
-    }
-
-    /**
-     * Recursive routine to print shortest path to dest
-     * after running shortest path algorithm. The path
-     * is known to exist.
-     * 
-     * @param dest the "destination" vertex.
-     * 
-     */
-    private void printPath(Vertex dest) {
-        
-        if (dest.prev != null) {
-            this.printPath(dest.prev);
-            System.out.print(" to ");
-        }
-        System.out.print(dest.name);
-    }
+    /** StringBuilder object to build a TaxiDriver's shortest path. */
+    StringBuilder shortestPathBuilder = new StringBuilder();
+    
+    /** A String object holding a TaxiDriver's shortest path. */
+    String currentShortestPath = new String();
+    
+    /** Value for weight of a TaxiDriver's shortest path. */
+    Integer currentShortestPathWeight = 0;
     
     /**
-     * This class represents a weighted edge in a graph.
-     * @author Mariano
-     *
+     * Creates a new edge in the graph.
+     * @param v1 starting vertex
+     * @param v2 ending vertex
+     * @param weight weight of edge being created
      */
-    private class Edge {
-        
-        /**The second vertex int he edge.**/
-        private Vertex dest;
-        /**The weight associated with the edge.**/
-        private double weight;
-        
-        
-        /**
-         * Constructor for the edge.
-         * @param d the desired second vertex for the edge.
-         * @param w the weight associated with the edge.
-         */
-        public Edge(Vertex d, double w) {
-            this.dest = d;
-            this.weight = w;
-        }
+    public void createEdge(String v1, String v2, Integer weight) {
+        Vertex vert1 = this.getVertex(v1);
+        Vertex vert2 = this.getVertex(v2);
+        vert1.adjacencyList.add(new Edge(vert2, weight));
     }
-
+    
+    // IMPLEMENT DIJKSTRA'S FOR TASK 3 HERE
+    
+    // PRIVATE HELPER METHODS
+    
     /**
-     * This class represents an entry in the priority queue.
-     *
+     * Retrieves the specified vertex from the mapOfVertices
+     * and creates a key-value pair in the mapOfVertices if
+     * the specified vertex doesn't exist.
+     * @param v specified vertex
+     * @return the vertex specified by the key v
      */
-    private class Path implements Comparable<Path> {
-        
-        /**The destination vertex, or d.**/
-        public Vertex     dest;
-        /**The weight of the edge associated with the vertex.**/
-        public double     weight;
-        
-        /**
-         * This method returns the shortest path.
-         * @param d the destination vertex
-         * @param w the weight associated with the vertex.
-         */
-        public Path(Vertex d, double w) {
-            this.dest = d;
-            this.weight = w;
+    private Vertex getVertex(String v) {
+        Vertex vert = this.mapOfVertices.get(v);
+        if (vert == null) {
+            vert = new Vertex(v);
+            this.mapOfVertices.put(v, vert);
         }
-        
-        /**
-         * EDIT THIS.
-         * @param rhs ??
-         * @return ??
-         */
-        public int compareTo(Path rhs) {
-            double otherCost = rhs.weight;
-            
-            return this.weight < otherCost ? -1 
-                    : this.weight > otherCost ? 1 : 0;
-        }
+        return vert;
     }
-
+    
+    // PRIVATE INNER CLASSES
+    
     /**
-     * This class represents a vertex in the graph.
-     * @author Mariano
+     * Inner Vertex class used for a vertex in the graph.
+     * @author Mariano Pennini, Alex Sharata, Matthias Philippine
      *
      */
     private class Vertex {
+        /** Vertex's name (which is a location on the map). */
+        public String locationName;
         
-        /**The name of the vertex.**/
-        private String name;
-        /**Adjacent vertices.**/
-        private List<Edge> adj;
-        /**The weight of the edge.**/
-        private double weight;
-        /**The previous vertex on the shortest path.**/
-        private Vertex prev;
+        /** Adjacency List holding all the adjacent vertices. */
+        public List<Edge> adjacencyList;
+        
+        /** Weight of edge created a vertex in the adjacency list. */
+        public Integer weight;
+        
+        /** Represents the previously added vertex in the shortest path. */
+        public Vertex previousVertex;
+        
+        /** Integer to keep track of number of times visited. */
+        public int visited;
         
         /**
-         * This is the vertex constructor.
-         * @param vtxName the name of the vertex.
+         * Vertex constructor with one argument.
+         * @param loc name of map's location for newly created vertex
          */
-        public Vertex(String vtxName) { 
-            this.name = vtxName; 
-            this.adj = new LinkedList<Edge>(); 
-            this.weight = Graph.INFINITY; 
-            this.prev = null;
-        }  
-          
+        public Vertex(String loc) {
+            this.locationName = loc;
+            this.adjacencyList = new LinkedList<Edge>();
+            this.unvisitVertex();
+        }
+        
+        /**
+         * Public helper method to make the Vertex unvisited for algorithm.
+         */
+        public void unvisitVertex() {
+            this.weight = Graph.INF;
+            this.previousVertex = null;
+            this.visited = 0;
+        }
+        
     }
     
+    /**
+     * Inner Edge class made of two vertices and a weight.
+     * @author Mariano Pennini, Alex Sharata, Matthias Philippine
+     *
+     */
+    private class Edge {
+        /** Last vertex in the edge. */
+        public Vertex v2;
+        
+        /** Edge's weight. */
+        public Integer weight;
+        
+        /**
+         * Edge constructor with two arguments.
+         * @param v ending vertex
+         * @param w edge weight
+         */
+        public Edge(Vertex v, Integer w) {
+            this.v2 = v;
+            this.weight = w;
+        }
+    }
+    
+    /**
+     * Inner Path class.
+     * @author Mariano Pennini, Alex Sharata, Matthias Philippine
+     *
+     */
+    private class Path implements Comparable<Path> {
+        /** final vertex in the path. */
+        public Vertex finalVert;
+        
+        /** total weight of the path. */
+        public Integer totalWeight;
+        
+        /**
+         * Path constructor with two arguments.
+         * @param v final vertex in the path
+         * @param w total weight of the path
+         */
+        public Path(Vertex v, Integer w) {
+            this.finalVert = v;
+            this.totalWeight = w;
+        }
+        
+        @Override
+        public int compareTo(Path rhs) {
+            Integer otherPathWeight = rhs.totalWeight;
+            if (this.totalWeight < otherPathWeight) {
+                return -1;
+            } else if (this.totalWeight > otherPathWeight) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }
 }
+
