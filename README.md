@@ -8,4 +8,4 @@ Task 1 involved implementing Kruskal's Algorithm to find a Minimum Spanning Tree
 
 Task 2 involved implementing a Topological Sort to sort input.
 
-Task 3 involved implementing Dijkstra's Algorithm as single-source shortest paths.
+Task 3 involved implementing Dijkstra's Algorithm to find single-source shortest paths.
