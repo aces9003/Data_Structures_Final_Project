@@ -8,7 +8,7 @@ Alexander Sharata (asharat1)
 Mariano Pennini (mpennin3)
 Matthias Philippine (mphili11)
 
-Our strategy first involved implementing a single-source shortest path algorithm in our Graph class that we all developed together, and our Graph class implements adjacency lists for each Vertex to keep a list of adjacent vertices. The shortest path algorithm we decided to use was Dijkstra’s because it was a clear choice to solve the problem at hand. In our Graph, we implemented Dijkstra’s Algorithm, and then we had a recursive function that would help us build a string containing the path found by a call to the algorithm, returning a string in the form of “v1 -> v2 -> … -> vN.”
+Our strategy first involved implementing a single-source shortest path algorithm in the Graph class that we all developed together, and our Graph class implements adjacency lists for each Vertex to keep a list of adjacent vertices. The shortest path algorithm we decided to use was Dijkstra’s because it was a clear choice to solve the problem at hand. In our Graph, we implemented Dijkstra’s Algorithm, and then we had a recursive function that would help us build a string containing the path found by a call to the algorithm, returning a string in the form of “v1 -> v2 -> … -> vN.”
 
 After the proper modifications to our graph had been made so that we could find the shortest path between two vertices and return that path in a String representation, we decided to make a TaxiDriver class that would store info about the drivers in the driverLocations.txt file. Each TaxiDriver would store a driver ID, location, shortest path (String), and that respective path’s weight (Integer).
 
