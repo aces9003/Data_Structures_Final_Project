@@ -153,67 +153,6 @@ public class DijkstraGraph {
     
     // PRIVATE INNER CLASSES
     
-    // Represents an edge in the graph.
-    /**
-     * Inner Edge class made of two vertices and a weight.
-     * @author Mariano Pennini, Alex Sharata, Matthias Philippine
-     *
-     */
-    private class Edge {
-        /** Last vertex in the edge. */
-        public Vertex v2;
-        
-        /** Edge's weight. */
-        public Integer weight;
-        
-        /**
-         * Edge constructor with two arguments.
-         * @param v ending vertex
-         * @param w edge weight
-         */
-        public Edge(Vertex v, Integer w) {
-            this.v2 = v;
-            this.weight = w;
-        }
-    }
-    
-    // Represents an entry in the priority queue for Dijkstra's algorithm.
-    /**
-     * Inner Path class used in PQ for DijkstraAlgorithm().
-     * @author Mariano Pennini, Alex Sharata, Matthias Philippine
-     *
-     */
-    private class Path implements Comparable<Path> {
-        /** final vertex in the path. */
-        public Vertex finalVert;
-        
-        /** total weight of the path. */
-        public Integer totalWeight;   // d(w)
-        
-        /**
-         * Path constructor with two arguments.
-         * @param v final vertex in the path
-         * @param w total weight of the path
-         */
-        public Path(Vertex v, Integer w) {
-            this.finalVert = v;
-            this.totalWeight = w;
-        }
-        
-        @Override
-        public int compareTo(Path rhs) {
-            Integer otherPathWeight = rhs.totalWeight;
-            if (this.totalWeight < otherPathWeight) {
-                return -1;
-            } else if (this.totalWeight > otherPathWeight) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-    }
-    
-    // Represents a vertex in the graph.
     /**
      * Inner Vertex class used for a vertex in the graph.
      * @author Mariano Pennini, Alex Sharata, Matthias Philippine
@@ -255,6 +194,64 @@ public class DijkstraGraph {
         }
         
     }
-
+    
+    /**
+     * Inner Edge class made of two vertices and a weight.
+     * @author Mariano Pennini, Alex Sharata, Matthias Philippine
+     *
+     */
+    private class Edge {
+        /** Last vertex in the edge. */
+        public Vertex v2;
+        
+        /** Edge's weight. */
+        public Integer weight;
+        
+        /**
+         * Edge constructor with two arguments.
+         * @param v ending vertex
+         * @param w edge weight
+         */
+        public Edge(Vertex v, Integer w) {
+            this.v2 = v;
+            this.weight = w;
+        }
+    }
+    
+    /**
+     * Inner Path class used in PQ for DijkstraAlgorithm(),
+     * and it implements Comparable in order to be used in alg.
+     * @author Mariano Pennini, Alex Sharata, Matthias Philippine
+     *
+     */
+    private class Path implements Comparable<Path> {
+        /** final vertex in the path. */
+        public Vertex finalVert;
+        
+        /** total weight of the path. */
+        public Integer totalWeight;
+        
+        /**
+         * Path constructor with two arguments.
+         * @param v final vertex in the path
+         * @param w total weight of the path
+         */
+        public Path(Vertex v, Integer w) {
+            this.finalVert = v;
+            this.totalWeight = w;
+        }
+        
+        @Override
+        public int compareTo(Path rhs) {
+            Integer otherPathWeight = rhs.totalWeight;
+            if (this.totalWeight < otherPathWeight) {
+                return -1;
+            } else if (this.totalWeight > otherPathWeight) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }
 }
 
