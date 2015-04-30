@@ -58,7 +58,8 @@ public class DijkstraGraph {
             v.unvisitVertex();
         }
         
-        pathPQ.add(new Path(startingVector, 0)); startingVector.weight = 0;
+        pathPQ.add(new Path(startingVector, 0)); 
+        startingVector.weight = 0;
         
         int verticesVisited = 0;
         while (!pathPQ.isEmpty() && verticesVisited < this.mapOfVertices.
