@@ -24,11 +24,13 @@ public final class BackyardDig {
      * @throws FileNotFoundException thrown if the file is not found.
      */
     public static void main(String[] args) throws FileNotFoundException {
+        //Weight of the edge
         int weight = 0;
-        //PrintWriter outWrite = new PrintWriter(args[1]);
+        //Scanner to parse through the file.
         Scanner inRead = new Scanner(new FileReader(args[0]));
         int numRows = inRead.nextInt();
         int numCols = inRead.nextInt();
+        //Vertex number
         int atCellNum = 0;
         int[][] twoDMap = new int[numRows][numCols];
         String lineOfInput = "";
@@ -44,36 +46,51 @@ public final class BackyardDig {
             }
         }
         
-        
-        
+        //These two lines read in the extra lines between the 
+        //first line of text and the first line of coordinates.
         inRead.nextLine();
+        inRead.nextLine();
+        
         while (inRead.hasNext()) {
             
             
             lineOfInput = inRead.nextLine();
             
+            //These next assignments represent the coordinate 
+            //position of the points as vertex numbers.
+            //These range from 0 to (N-1) where N is the number of vertices.
             int xFirst = Integer.parseInt(lineOfInput.substring(lineOfInput.
                     indexOf('(') + 1, lineOfInput.indexOf(',')));
-            //System.out.print("xFirst: " + xFirst);
+            
             int yFirst = Integer.parseInt(lineOfInput.substring(lineOfInput.
                     indexOf(',') + 1, lineOfInput.indexOf(')')));
-            //System.out.print(" yFirst: " + yFirst);
+            
             int xSecond = Integer.parseInt(lineOfInput.substring(lineOfInput.
                     lastIndexOf('(') + 1, lineOfInput.lastIndexOf(',')));
-            //System.out.print("xSecond: " + xSecond);
+            
             int ySecond = Integer.parseInt(lineOfInput.substring(lineOfInput.
                     lastIndexOf(',') + 1, lineOfInput.lastIndexOf(')')));
-            //System.out.println(" ySecond: " + ySecond);
+            
             weight = Integer.parseInt(lineOfInput.substring(lineOfInput.
                     lastIndexOf(')') + 2, lineOfInput.length()));
-            //System.out.println("Weight: " + weight);
+            
+            //Creates a string containing the coordinate points
             String edgeString = "(" + xFirst + "," + yFirst + ")" + " " + "("
                     + xSecond + "," + ySecond + ")";
+            
+            //Adds an edge to the graph with the two vertices, 
+            //the weight of the edge, and the string 
+            //representation of the coordinates of the two vertices.
             backyard.addEdge(twoDMap[xFirst][yFirst], 
                     twoDMap[xSecond][ySecond], weight, edgeString);
         }
         inRead.close();
+        
+        //Perform Kruskal's method on the graph to 
+        //obtain the minimum spanning tree.
         backyard.kruskalPublic();
+        
+        //Print the graph to the specified file.
         backyard.printGraphPublic(new PrintWriter(args[1]), args[1]);
         
     }

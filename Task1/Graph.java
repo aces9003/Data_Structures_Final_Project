@@ -119,9 +119,9 @@ public class Graph {
     /**
      * Print the graph to a file with name specified by user.
      * @param writer the PrintWriter object to use
-     * @param fileName the name fo the file to print to
+     * @param fileName the name of the file to print to
      */
-    public void printGraph(PrintWriter writer, String fileName) {
+    private void printGraph(PrintWriter writer, String fileName) {
         
         writer.println(this.minWeight);
         for (int i = 0; i < this.finalList.size(); i++) {
@@ -135,7 +135,7 @@ public class Graph {
     
     /**
      * This class represents a weighted edge in a graph.
-     * @author Mariano
+     * @author Mariano Pennini
      *
      */
     private class Edge implements Comparable<Edge> {
@@ -198,8 +198,10 @@ public class Graph {
          * @param vtxNum the name of the vertex.
          */
         public Vertex(int vtxNum) { 
+            
             this.vtxNumber = vtxNum; 
             this.adj = new LinkedList<Edge>(); 
+            
         }  
           
     }
