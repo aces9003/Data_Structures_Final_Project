@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @author Mariano Pennini
  *
  */
-public class Graph {
+public class GraphKruskal {
     
     /**Represents an infinity value.**/
     public static final int INFINITY = Integer.MAX_VALUE;
@@ -85,11 +85,6 @@ public class Graph {
         this.finalList = new ArrayList<Edge>();
         Edge theEdge;
         
-        if (this.vertexMap.size() <= 1) {
-            this.finalList.add(this.finalList.get(1));
-            return;
-        } 
-        
         while (!this.edges.isEmpty()) {
             theEdge = this.edges.poll();
             int root1 = this.unionFind.find(theEdge.source.vtxNumber);
@@ -124,6 +119,7 @@ public class Graph {
     private void printGraph(PrintWriter writer, String fileName) {
         
         writer.println(this.minWeight);
+        writer.println();
         for (int i = 0; i < this.finalList.size(); i++) {
             writer.println(this.finalList.get(i).edgeString
                     + "\t" + this.finalList.get(i).weight);
@@ -131,7 +127,6 @@ public class Graph {
         
         
     }
-    
     
     /**
      * This class represents a weighted edge in a graph.
@@ -146,7 +141,7 @@ public class Graph {
         private Vertex dest;
         /**The weight associated with the edge.**/
         private int weight;
-        /**The string represntation of the edge in coordinate form.**/
+        /**The string representation of the edge in coordinate form.**/
         private String edgeString;
         
         

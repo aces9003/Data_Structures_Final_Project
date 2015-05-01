@@ -14,7 +14,7 @@ Kruskal's method works as follows:
 	-If the edge creates no cycles, then it is added to an array list of edges that hold the final edges needed for the minimum spanning tree.
 
 Time Complexity:
-	-The find operation of Kruskal's method is O(logN)
-	-Adding edged to the array list is O(1) amortized, but O(n) worst case due to resizing.
+	-The find operation of Kruskal's method is O(logN) and this is done 2k times where k is the number of edges in the MST.
+	-Adding edged to the array list is O(1) amortized, but O(N) worst case due to resizing.
 	-Printing the graph is O(k) where k is the number of elements.
-	-So, final complexity is O(logN + k)
+	-So, final complexity is O(klogN)
