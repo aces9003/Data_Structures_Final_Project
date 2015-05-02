@@ -68,13 +68,13 @@ public final class Taxis {
                 String v1 = lineOfInput.substring(lineOfInput.
                         indexOf('(') + 1, lineOfInput.indexOf(','));
                 String v2 = lineOfInput.substring(lineOfInput.
-                        indexOf(',') + 2, lineOfInput.indexOf(')'));
+                        indexOf(',') + 1, lineOfInput.indexOf(')'));
                 String weightString = lineOfInput.substring(lineOfInput.
-                        lastIndexOf(')') + 2, lineOfInput.length());
+                        lastIndexOf(')') + 1, lineOfInput.length());
                 int weight = Integer.parseInt(weightString.trim());
                 // Makes the streets 'two-way' streets
-                g.createEdge(v1, v2, weight);
-                g.createEdge(v2, v1, weight);
+                g.createEdge(v1.trim(), v2.trim(), weight);
+                g.createEdge(v2.trim(), v1.trim(), weight);
                 mapConnectionsCount++;
             }
         }  catch (IOException e) {
@@ -84,7 +84,6 @@ public final class Taxis {
         // driverLocations.txt
         try {
             final int three = 3;    // shuts up checkstyle.
-            final int four = 4;    // shuts up checkstyle.
             Scanner driverLocations = new Scanner(new FileReader(args[three]));
             String lineOfInput = "";
             int driverID = 0;
@@ -92,12 +91,13 @@ public final class Taxis {
 
             while (driverLocations.hasNext()) {
                 lineOfInput = driverLocations.nextLine();
-                String driverIDString = lineOfInput.substring(0, four);
+                String driverIDString = lineOfInput.substring(0, 2);
                 driverID = Integer.parseInt(driverIDString.trim());
-                // Allows for driver ID to be at least 5 digits long
-                location = lineOfInput.substring(four, lineOfInput.length());
+                // ASSUMING DRIVER ID IS ONLY 2 DIGITS LONG!!!!!!!
+                location = lineOfInput.substring(2, lineOfInput.length());
                 driverCount++;
-                TaxiDriver tempDriver = new TaxiDriver(driverID, location);
+                TaxiDriver tempDriver = 
+                        new TaxiDriver(driverID, location.trim());
                 driversList.add(tempDriver);
             }
 

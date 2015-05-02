@@ -1,0 +1,47 @@
+Below is the result of a sample execution with command line arguments as follows:
+	3  mapLocations2.txt  mapConnections2.txt  driverLocations2.txt  
+----------
+
+
+Collecting map locations from mapLocations.txt...
+13 locations input.
+
+Collecting map connections from mapConnections.txt...
+22 connections input.
+
+Collecting driver locations from driverLocations.txt...
+6 drivers input.
+
+Map locations are:
+
+	 1 A
+	 2 B
+	 3 C
+	 4 D
+	 5 E
+	 6 F
+	 7 G
+	 8 H
+	 9 I
+	10 J
+	11 K
+	12 L
+	13 M
+
+
+Enter number of recent client pickup request location: 3
+
+The 3 drivers to alert about this pickup are:
+
+97 at F
+93 at K
+98 at K
+
+
+Enter the ID number of the driver who responded: 97
+
+The recommended route for driver 97 is:
+	(F,J)
+	(J,C)
+	Expected total time: 41 minutes
+
