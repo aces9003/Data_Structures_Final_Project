@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @author Mariano Pennini
  *
  */
-public class GraphKruskal {
+public class Graph {
     
     /**Represents an infinity value.**/
     public static final int INFINITY = Integer.MAX_VALUE;
