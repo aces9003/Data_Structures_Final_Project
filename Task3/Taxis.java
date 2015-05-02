@@ -1,12 +1,13 @@
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
-
 import java.util.Collections;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Taxis class that takes in 4 command-line args,
@@ -90,11 +91,13 @@ public final class Taxis {
             String location = "";
 
             while (driverLocations.hasNext()) {
+                String driverIDString = "";
                 lineOfInput = driverLocations.nextLine();
-                String driverIDString = lineOfInput.substring(0, 2);
+                location = lineOfInput.replaceAll("^\\s*[0-9]+\\s+", "");
+                int idEndPt = Math.abs(lineOfInput.length() 
+                        - (location.trim().length()));
+                driverIDString = lineOfInput.substring(0, idEndPt);
                 driverID = Integer.parseInt(driverIDString.trim());
-                // ASSUMING DRIVER ID IS ONLY 2 DIGITS LONG!!!!!!!
-                location = lineOfInput.substring(2, lineOfInput.length());
                 driverCount++;
                 TaxiDriver tempDriver = 
                         new TaxiDriver(driverID, location.trim());
